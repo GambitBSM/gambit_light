@@ -1,0 +1,119 @@
+
+
+  ========================================
+  ||                                    ||
+  ||  BOSS - Backend-On-a-Stick-Script  ||
+  ||                                    ||
+  ========================================
+
+
+Author: 
+  Anders Kvellestad 
+  (with much appreciated help from Pat Scott, Lars A. Dal and Abram Krislock.)
+
+Date:
+  May 2015
+  May 2017
+
+Short description:
+  BOSS is a tool for turning a C++ code into a suitable
+  GAMBIT backend, including dynamic loading of classes.
+
+
+
+Requirements:
+-------------
+
+CastXML: 
+  For parsing C++ code BOSS makes use of the tool 'castxml',
+  available from https://github.com/CastXML
+
+  For GAMBIT we include BOSS with binary versions of castxml,
+  located in the castxml/ subfolder.
+
+
+Quick guide:
+------------
+
+1. If a config file modules/<config file>.py does not already exist 
+   for your GAMBIT backend, create one based on the existing examples
+   in the modules/ directory.
+
+
+2. Edit the settings in modules/<config file>.py
+   
+   This is where you specify what classes and functions BOSS should
+   try to make available from GAMBIT, and provide further information
+   about the C++ code, such as paths and file extensions.
+
+   *** Special note for OS X users ***
+
+   BOSS will most likely fail if 'g++' points to the Clang compiler.
+   Install GNU g++ and point the castxml_cc variable in the  the GNU 
+   g++ executable.   
+
+
+3. Run BOSS: ./boss.py [options] <input files>
+   
+   <input files> is a list of C++ header or source files that contain
+   the requested classes and functions. It is sufficient that declarations
+   of the classes/functions are reachable through a chain of C++ include
+   statements. Thus, if there is one "main" header that includes most
+   other parts of the code, it will usually be sufficient to list only
+   this file.
+
+   Example: ./boss.py path_to_Pythia/include/Pythia8/Pythia.h
+
+   To list the available command line options, run: ./boss.py --help
+
+
+4. When BOSS has finished, a list of further instructions on how to make
+   the backend accessible from GAMBIT is shown.
+   
+   NOTE: If the backend is properly integrated into the GAMBIT CMake system,
+   these final steps should be done automatically.
+
+
+
+Limitations:
+------------
+
+First of all, any limitation of the CastXML parser will automatically also be a 
+limitation of BOSS.
+
+To accomplish dynamic loading of classes while maintaining the original class interface,
+BOSS constructs a "wrapper class" for every loaded class. This wrapper class type is
+shared by both the backend library and GAMBIT. However, there are several scenarios that
+BOSS cannot yet deal with properly. In such cases BOSS will usually be able
+to generate functioning code, but there will be no interface to the problematic elements.
+The limitations most commonly encountered are:
+
+- Class members that make use of another class that is not loaded.
+
+- Class member variables that are of type pointer-to-loaded-class.
+
+- Function pointers.
+
+- Templated classes and functions.
+
+- Arrays containing a loaded class.
+
+Often the limitations can easily be overcome by small additions to the C++ code.
+For instance, if a class contains a member variable 'x_arr' that is an array containing 
+instances of some loaded type 'X', BOSS cannot generate an interface to the 'x_arr' variable.
+However, if the original class also contains some simple interface functions, e.g. 
+  
+  X& get_x(int i)  { return x_arr[i]; }
+
+and
+
+  void set_x(int i, X x_in) { x_arr[i] = x_in; },
+
+BOSS will happily generate an interface to these functions, allowing the user to access the
+content of 'x_arr'.
+
+
+
+
+
+
