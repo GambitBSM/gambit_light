@@ -1,3 +1,5 @@
+# A change now in a new file -will there be a new commit in the PR on the ligth fork?
+# A new change to see if commit ids for all commits in PR in light change
 GAMBIT: building on Mac OSX with AppleClang
 ===========================================
 
