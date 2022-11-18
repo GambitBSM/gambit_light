@@ -1,3 +1,7 @@
+## Test for syncing - should be synced
+## One more comment - is it added, or just overwritten?
+## Third change from main fork
+## Fourth change from main fork but now in separate branch with PR - will there now be a new commit in the sync light fork repo? The above change did not produce a new commit, only an update of the file itself.
 ## Maiken adding some change here from the light repo - will there be a merge conflict and can I solve it?
 ## What about another change? 
 Fork-sync test
