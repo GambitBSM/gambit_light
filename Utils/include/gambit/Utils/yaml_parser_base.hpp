@@ -73,7 +73,7 @@ namespace Gambit
           YAML::Node getUserModelNode() const;
           YAML::Node getUserLogLikesNode() const;
         #endif
-
+        
         template <typename... args>
         bool hasKey(args... keys) const
         {
