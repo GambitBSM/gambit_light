@@ -50,7 +50,6 @@
 #include <omp.h>
 #include <cstring>
 #include <complex>
-#include <set>
 #include <memory>
 
 #include "gambit/Utils/standalone_error_handlers.hpp"
@@ -97,10 +96,6 @@ namespace Gambit
   typedef std::map<std::string,std::map<std::string,std::string> > map_str_map_str_str;
   /// Shorthand for an int-int pair to double map
   typedef std::map< std::pair < int, int >, double> map_intpair_dbl;
-  /// Shorthand for a set of strings
-  typedef std::set<std::string> set_str;
-  /// Shorthand for a set of strings
-  typedef std::vector<std::pair<std::string,std::string> > vec_pair_str_str;
 
   // Shorthand for vector of shared pointers
   template <typename T>
