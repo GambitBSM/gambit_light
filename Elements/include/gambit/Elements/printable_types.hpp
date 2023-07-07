@@ -14,10 +14,6 @@
 ///          (benjamin.farmer@fysik.su.se)
 ///  \date 2016 Jan
 ///
-///  \author Anders Kvellestad
-///          (anders.kvellestad@fys.uio.no)
-///  \date 2023 May
-///
 ///  *********************************************
 
 #ifndef __printable_types_hpp__
@@ -33,12 +29,16 @@
   (map_str_map_str_dbl)               \
   (map_const_str_map_const_str_dbl)   \
   (map_intpair_dbl)                   \
-  (triplet<double>)
+  (triplet<double>)                   \
+  (flav_prediction)                   \
+  (DM_nucleon_couplings)              \
+  (BBN_container)
 
 // Types that can be retrieved from Gambit printer output (if printer plugin is properly equipped)
 // Generally needs to be the same as the printable types, i.e. should be able to retrieve everything.
 #define RETRIEVABLE_TYPES \
-  PRINTABLE_TYPES
+  PRINTABLE_TYPES \
+  (MSSM_SLHAstruct) \
+  (SMslha_SLHAstruct)
 
 #endif // defined __printable_types_hpp__
-
