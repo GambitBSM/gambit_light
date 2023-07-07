@@ -55,7 +55,7 @@ priors: |
   The various priors that GAMBIT recognises are listed above, separated into three groups: one-dimensional priors (flat, log, double_log_flat_join, sin, cos, tan, cot), multi-dimensional priors (gaussian, cauchy, lognormal, dummy), and others (same_as, fixed_value, plugin, none).
 
 "1d_priors": [flat, log, double_log_flat_join, sin, cos, tan, cot]
-"nd_priors": [gaussian, cauchy, lognormal, dummy, userprior]
+"nd_priors": [gaussian, cauchy, lognormal, dummy]
 "other_priors": [same_as, fixed_value, plugin, none]
 "internal_priors": [composite]
 
@@ -84,27 +84,21 @@ nd_priors: |
   #remove_newlines
   Specifies a multivariate prior.
 
-  Inifile entries for gaussian:
+  For gaussian, the entries are:
       cov_matrix: the covariance matrix or 
       sigma: the sqrt of the diagonal components of the covariance matrix and
       mu: the mean(s)
 
-  Inifile entries for cauchy:
+  For cauchy, the entries are:
       scale_matrix: the scale matrix or 
       gamma: the sqrt of the diagonal components of the scale matrix and
       location: the location parameter(s)
 
-  Inifile entries for lognormal:
+  For lognormal, the entries are:
       cov_matrix: the covariance matrix of log x or
       sigma: the sqrt of the diagonal components of the covariance matrix of log x and
       mu: the mean(s) of log x
       base: the base of the logarithm. A float or the character e for natural logarithm
-
-  Inifile entries for dummy: none. The dummy prior performs a transformation that
-      does absolutely nothing.
-
-  Initfile entries for userprior: none. All settings are the responsibility of the 
-      user-provided prior transform function. 
 
   Note that there are two ways to specify the covariance/scale matrix: through
   cov_matrix/scale_matrix or, if the covariance/scale matrix is diagonal, through the square roots
@@ -112,7 +106,6 @@ nd_priors: |
 
   The entries gamma and location, and sigma and mu should be sequences in the n > 1
   dimension case, but may be scalars if n = 1.
-
 
 other_priors: |
   #remove_newlines
@@ -135,6 +128,9 @@ other_priors: |
         fixed_value: the value(s) to which the parameter should be fixed
         shift (0):   adds the shift value to the parameter
         scale (1):   multiplies the scale value to the parameter
+
+  dummy:
+    Does a transformation that does absolutely nothing.
 
   none:
   #remove_newlines
