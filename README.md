@@ -157,17 +157,17 @@ This example performs a two-parameter scan that uses the (negative) Rosenbrock f
 
 - If you change `use_scanner: diver` to e.g. `use_scanner: multinest` in the YAML file, choose a new output directory (change the `default_output_path` setting), and run GAMBIT-light again, you can also produce Bayesian posterior results. (Just look at the posterior example scripts `gambit_plotting_tools`.)
 
-- At the end you should have plots looking e.g. like this: 
+- At the end you should have plots looking e.g. like this:
   
-<<<<<<< HEAD
-  <img src="example_plots/2D_profile__x1__x2__LogLike.png" alt="2D profile likelihood example plot" width="250"/>
-  <img src="example_plots/1D_profile__x2__LogLike.png" alt="1D profile likelihood example plot" width="250"/>
-
-  <img src="example_plots/2D_posterior__x1__x2.png" alt="2D posterior example plot" width="250"/>
-  <img src="example_plots/1D_posterior__x2.png" alt="2D profile likelihood example plot" width="250"/>
-=======
-  <img src="example_results/2D_profile__x1__x2__LogLike.png" alt="2D profile likelihood example plot" width="400"/>
->>>>>>> 2c6d8ac3e33f37d5e8f1a7ba1af3d007e509dad3
+  Profile likelihoods:
+  
+  <img src="example_results/2D_profile__x1__x2__LogLike.png" alt="2D profile likelihood example plot" width="300"/>
+  <img src="example_results/1D_profile__x2__LogLike.png" alt="1D profile likelihood example plot" width="300"/>
+  
+  Bayesian posterior distributions:
+  
+  <img src="example_results/2D_posterior__x1__x2.png" alt="2D posterior example plot" width="300"/>
+  <img src="example_results/1D_posterior__x2.png" alt="2D profile likelihood example plot" width="300"/>
 
 
 Common issues
