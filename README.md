@@ -12,22 +12,10 @@ Some features of GAMBIT-light:
   - Safe shutdown and resuming of aborted runs
   - Run configuration via a simple YAML file
 
-GAMBIT-light is a spin-off project from **GAMBIT** (the Global And Modular BSM Inference Tool), https://gambitbsm.org/, a software tool for large-scale statistical fits in particle physics and astrophysics.
+GAMBIT-light is a spin-off project from **GAMBIT** (the Global And Modular BSM Inference Tool), https://gambitbsm.org/, a software tool for large-scale statistical fits in particle physics and astrophysics. If you use GAMBIT-light, please cite the papers listed in the Citation section below.
 
 
-Citation(s)
---
-
-Please cite the following GAMBIT papers if you use GAMBIT-light:
-
- - GAMBIT Collaboration: P. Athron, et al., **GAMBIT**: The Global and Modular Beyond-the-Standard-Model Inference Tool, Eur. Phys. J. C 77 (2017) 784, arXiv:1705.07908
- - GAMBIT Scanner Workgroup: G. D. Martinez, et al., Comparison of statistical sampling methods with **ScannerBit**, the GAMBIT scanning module, Eur. Phys. J. C 77 (2017) 761, arXiv:1705.07959
-
-GAMBIT-light contains interfaces to several external codes, in particular optimisation or sampling tools. Please cite as appropriate when you use those codes.
-
-
-
-Supported Compilers and Library Dependencies
+Supported compilers and library dependencies
 --
 
 GAMBIT-light is built using the CMake system. The following libraries and packages must be installed prior to configuration:
@@ -119,7 +107,7 @@ for a run with 4 MPI processes.
 
 
 
-Connecting your own target/likelihood function
+Connect your own target/likelihood function
 --
 
 For step-by-step instructions on how to connect your own Python/C/C++/Fortran code to GAMBIT-light, see the README files and example codes in the 
@@ -147,7 +135,7 @@ pip install ./gambit_plotting_tools
 Fully worked example from scan to plotting
 --
 
-This example performs a two-parameter scan that uses the (negative) Rosenbrock function as an example log-likelihood function for which we want to identify the best-fit point and map out the 1sigma and 2sigma confidence regions. The scan is performed using the Diver differential evolution scanner and takes 1-2 minutes when running with 1 MPI process. The scan output is written to the directory `runs/gambit_light_example_rosenbrock_scan`.
+This example performs a two-parameter scan that uses the (negative) Rosenbrock function as an example log-likelihood function for which we want to identify the best-fit point and map out the 1sigma and 2sigma confidence regions. The scan is performed using the Diver differential evolution scanner and should take around one minute when running with a single MPI process. The scan output is written to the directory `runs/gambit_light_example_rosenbrock_scan`.
 
 - Run GAMBIT scan:
 
@@ -171,11 +159,15 @@ This example performs a two-parameter scan that uses the (negative) Rosenbrock f
 
 - At the end you should have plots looking e.g. like this: 
   
+<<<<<<< HEAD
   <img src="example_plots/2D_profile__x1__x2__LogLike.png" alt="2D profile likelihood example plot" width="250"/>
   <img src="example_plots/1D_profile__x2__LogLike.png" alt="1D profile likelihood example plot" width="250"/>
 
   <img src="example_plots/2D_posterior__x1__x2.png" alt="2D posterior example plot" width="250"/>
   <img src="example_plots/1D_posterior__x2.png" alt="2D profile likelihood example plot" width="250"/>
+=======
+  <img src="example_results/2D_profile__x1__x2__LogLike.png" alt="2D profile likelihood example plot" width="400"/>
+>>>>>>> 2c6d8ac3e33f37d5e8f1a7ba1af3d007e509dad3
 
 
 Common issues
@@ -208,7 +200,20 @@ Common issues
     printer: hdf5_v1
   ```
 
-- **hdf5_v1 printer and the multinest scanner**: The multinest scanner currently currently cannot be used together with the hdf5_v1 printer.
+- **hdf5_v1 printer and the multinest scanner**: The multinest scanner currently cannot be used together with the hdf5_v1 printer.
+
+- **gambit plotting tools throwing errors about axis syntax**: Much older versions of matplotlib may not allow the syntax used to create profile likelihood plots. This would require upgrading the matplotlib version.
+
+
+Citation
+--
+
+Please cite the following GAMBIT papers if you use GAMBIT-light:
+
+ - GAMBIT Collaboration: P. Athron, et al., **GAMBIT**: The Global and Modular Beyond-the-Standard-Model Inference Tool, Eur. Phys. J. C 77 (2017) 784, arXiv:1705.07908
+ - GAMBIT Scanner Workgroup: G. D. Martinez, et al., Comparison of statistical sampling methods with **ScannerBit**, the GAMBIT scanning module, Eur. Phys. J. C 77 (2017) 761, arXiv:1705.07959
+
+GAMBIT-light contains interfaces to several external codes, in particular optimisation or sampling tools. Please cite as appropriate when you use those codes.
 
 
 Licensing
