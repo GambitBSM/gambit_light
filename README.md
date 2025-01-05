@@ -165,10 +165,17 @@ This example performs a two-parameter scan that uses the (negative) Rosenbrock f
   cd gambit_plotting_tools
   python example_gambit_light_2D_profile_like_hdf5.py
   ```
+- To make a 1D profile likelihood plot, just look at the example `gambit_plotting_tools/example_1D_profile_like_hdf5.py` and make the appropriate changes. 
 
-  This should give a plot looking something like this:
+- If you change `use_scanner: diver` to e.g. `use_scanner: multinest` in the YAML file, choose a new output directory (change the `default_output_path` setting), and run GAMBIT-light again, you can also produce Bayesian posterior results. (Just look at the posterior example scripts `gambit_plotting_tools`.)
+
+- At the end you should have plots looking e.g. like this: 
   
-  <img src="example_plots/2D_profile__x1__x2__LogLike.png" alt="2D profile likelihood example plot" width="400"/>
+  <img src="example_plots/2D_profile__x1__x2__LogLike.png" alt="2D profile likelihood example plot" width="250"/>
+  <img src="example_plots/1D_profile__x2__LogLike.png" alt="1D profile likelihood example plot" width="250"/>
+
+  <img src="example_plots/2D_posterior__x1__x2.png" alt="2D posterior example plot" width="250"/>
+  <img src="example_plots/1D_posterior__x2.png" alt="2D profile likelihood example plot" width="250"/>
 
 
 Common issues
