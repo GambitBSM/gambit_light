@@ -185,9 +185,9 @@ Scanner:
       initial_guesses:                    # Starting guesses for the parameter values -- use if you want to seed the scan with known good values.
         parameters: [UserModel::p1, UserModel::p2, UserModel::p5, UserModel::p6, UserModel::p7] # Explains which parameter is which in the starting guesses. Be sure to use originals rather than parameters declared "same_as".
         values:                           # The actual parameter values of the guesses
-        - [2, 2, 0.1, 0.1, 0.1]              # A guess at the parameter values
-        - [2, 3, 0, 0, 0]                    # Another guess at the parameter values
-        - [2, 2, 0.1, -0.1, 0]               # Yet another guess
+        - [2, 2, 0.1, 0.1, 0.1]           # A guess at the parameter values
+        - [2, 3, 0, 0, 0]                 # Another guess at the parameter values
+        - [2, 2, 0.1, -0.1, 0]            # Yet another guess
 
 
     polychord:
