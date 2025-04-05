@@ -1,5 +1,5 @@
 # ----------------------------------
-# GAMBIT_light configuration example 
+# GAMBIT_light configuration example
 # ----------------------------------
 
 UserModel:
@@ -182,6 +182,13 @@ Scanner:
       max_initialisation_attempts: 10000  # Maximum number of times to try to find a valid vector for each slot in the initial population.
       verbosity: 0                        # Output verbosity: 0=only error messages, 1=basic info, 2=civ-level info, 3+=population info
       seed: -1                            # Base seed for random number generation; non-positive means seed from the system clock
+      initial_guesses:                    # Starting guesses for the parameter values -- use if you want to seed the scan with known good values.
+        parameters: [UserModel::p1, UserModel::p2, UserModel::p5, UserModel::p6, UserModel::p8] # Explains which parameter is which in the starting guesses. Be sure to use originals rather than parameters declared "same_as".
+        values:                           # The actual parameter values of the guesses
+        - [2, 2, 0.1, 0.1, 0.1]              # A guess at the parameter values
+        - [2, 3, 0, 0, 0]                    # Another guess at the parameter values
+        - [2, 2, 0.1, -0.1, 0]               # Yet another guess
+
 
     polychord:
       plugin: polychord
