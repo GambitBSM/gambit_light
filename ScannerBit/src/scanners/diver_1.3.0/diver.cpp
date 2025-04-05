@@ -161,6 +161,16 @@ scanner_plugin(diver, version(1, 3, 0))
       std::vector<std::string> ig_parnames = initial_guesses_node["parameters"].as<std::vector<std::string>>();
       std::vector<std::vector<double>> ig_values = initial_guesses_node["values"].as<std::vector<std::vector<double>>>();
 
+      // Make sure the parameter names all match those being scanned.
+      const std::vector<std::string> valid_parameters = data.likelihood_function->getPrior().getShownParameters();
+      for (auto parname : ig_parnames)
+      {
+        if (not std::count(valid_parameters.begin(), valid_parameters.end(), parname))
+        {
+          scan_err << "Parameter " << parname << " specified in \"initial_guesses\" is not one of those being scanned over." << scan_end;
+        }
+      }
+
       // Determine the total number of guesses, and therefore the size of the array that needs to be passed to Diver
       nGuesses = ig_values.size();
       initial_guesses = std::vector<double>(nPar*nGuesses);
