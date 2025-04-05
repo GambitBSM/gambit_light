@@ -1,5 +1,5 @@
 # ----------------------------------
-# GAMBIT_light configuration example 
+# GAMBIT_light configuration example
 # ----------------------------------
 
 UserModel:
@@ -14,7 +14,7 @@ UserModel:
     # prior_type: flat
     # range: [0.0, 5.0]
 
-  p3: 
+  p3:
     name: param_name_3
     # fixed_value: 3.0
 
@@ -22,16 +22,16 @@ UserModel:
     name: param_name_4
     # same_as: UserModel::p1
 
-  p5-p7: 
+  p5-p7:
     name: param_name_  # GAMBIT will generate the names "param_name_5", "param_name_6", etc.
     # prior_type: flat
     # range: [-1.0, 1.0]
 
 
-# Instead of specifying individual parameter priors above, 
-# a user-provided prior transform function can be used via 
-# the "UserPrior" section below. The user-defined prior 
-# function should take care of the prior transform 
+# Instead of specifying individual parameter priors above,
+# a user-provided prior transform function can be used via
+# the "UserPrior" section below. The user-defined prior
+# function should take care of the prior transform
 # (from the unit hypercube) for all parameters in use.
 
 UserPrior:
@@ -55,8 +55,8 @@ UserPrior:
 
 UserLogLikes:
 
-  # Note: 
-  # If a loglike function expects all the UserModel parameters 
+  # Note:
+  # If a loglike function expects all the UserModel parameters
   # as input, you can leave out the 'input' section (see below).
 
   py_user_loglike:
@@ -108,7 +108,7 @@ UserLogLikes:
   #   output:
   #     - cpp_user_loglike_output_1
   #     - cpp_user_loglike_output_2
-  #     # - cpp_user_loglike_output_3   # We can comment out an outputs if we 
+  #     # - cpp_user_loglike_output_3   # We can comment out an outputs if we
   #                                     # don't want to include it in the scan output
 
   # fortran_user_loglike:
@@ -145,22 +145,22 @@ Printer:
     group: "/data"
     delete_file_on_restart: true
     disable_combine_routines: true
-      # Note: The hdf5_v1 printer writes one HDF5 file per MPI process and then combines these 
-      # files at the end into a single HDF5 file. If the run output is very large, the combination 
+      # Note: The hdf5_v1 printer writes one HDF5 file per MPI process and then combines these
+      # files at the end into a single HDF5 file. If the run output is very large, the combination
       # step at the end can take a long time, which may be impractical e.g. when running GAMBIT-light
       # on an HPC system with a job time limit. An alternative then is to use the option
-      # 
+      #
       #   disable_combine_routines: true
-      # 
+      #
       # and "manually" combine the HDF5 files after the GAMBIT-light run. A script for doing this can
       # be found in Printers/scripts/hdf5_combine.py. Use it as follows:
-      # 
+      #
       #   python combine_hdf5.py <path-to-target-hdf5-file> <root group in hdf5 files> <tmp file 1> <tmp file 2> ...
-      # 
+      #
       # Example:
-      # 
+      #
       #   python path/to/Printers/scripts/combine_hdf5.py results.hdf5 data results.hdf5_temp_*
-    
+
 
 Scanner:
 
@@ -193,6 +193,13 @@ Scanner:
       max_initialisation_attempts: 10000  # Maximum number of times to try to find a valid vector for each slot in the initial population.
       verbosity: 0                        # Output verbosity: 0=only error messages, 1=basic info, 2=civ-level info, 3+=population info
       seed: -1                            # Base seed for random number generation; non-positive means seed from the system clock
+      initial_guesses:                    # Starting guesses for the parameter values -- use if you want to seed the scan with known good values.
+        parameters: [UserModel::p1, UserModel::p2, UserModel::p5, UserModel::p6, UserModel::p7] # Explains which parameter is which in the starting guesses. Be sure to use originals rather than parameters declared "same_as".
+        values:                           # The actual parameter values of the guesses
+        - [2, 2, 0.1, 0.1, 0.1]           # A guess at the parameter values
+        - [2, 3, 0, 0, 0]                 # Another guess at the parameter values
+        - [2, 2, 0.1, -0.1, 0]            # Yet another guess
+
 
     polychord:
       plugin: polychord
@@ -273,7 +280,7 @@ Scanner:
     scipy_basin_hopping:
       like: LogLike
       plugin: scipy_basin_hopping
-      # The run arguments below have been tested with scipy v1.9. 
+      # The run arguments below have been tested with scipy v1.9.
       # Other versions might expect different arguments.
       run:
         # n_runs: 4
@@ -293,7 +300,7 @@ Scanner:
     scipy_differential_evolution:
       like: LogLike
       plugin: scipy_differential_evolution
-      # The run arguments below have been tested with scipy v1.9. 
+      # The run arguments below have been tested with scipy v1.9.
       # Other versions might expect different arguments.
       run:
         # n_runs: 4
@@ -315,7 +322,7 @@ Scanner:
     scipy_direct:
       like: LogLike
       plugin: scipy_direct
-      # The run arguments below have been tested with scipy v1.9. 
+      # The run arguments below have been tested with scipy v1.9.
       # Other versions might expect different arguments.
       run:
         # n_runs: 4
@@ -329,7 +336,7 @@ Scanner:
     scipy_dual_annealing:
       like: LogLike
       plugin: scipy_dual_annealing
-      # The run arguments below have been tested with scipy v1.9. 
+      # The run arguments below have been tested with scipy v1.9.
       # Other versions might expect different arguments.
       run:
         # n_runs: 4
@@ -347,7 +354,7 @@ Scanner:
     scipy_shgo:
       like: LogLike
       plugin: scipy_shgo
-      # The run arguments below have been tested with scipy v1.9. 
+      # The run arguments below have been tested with scipy v1.9.
       # Other versions might expect different arguments.
       run:
         split_param_space:
@@ -377,7 +384,7 @@ Scanner:
     scipy_minimize:
       like: LogLike
       plugin: scipy_minimize
-      # The run arguments below have been tested with scipy v1.9. 
+      # The run arguments below have been tested with scipy v1.9.
       # Other versions might expect different arguments.
       run:
         # n_runs: 5
@@ -402,7 +409,7 @@ Scanner:
       run:
         dlogz: 0.5
         checkpoint_every: 60
-        
+
     dynamic_dynesty:
       like: LogLike
       plugin: dynamic_dynesty
@@ -485,7 +492,7 @@ KeyValues:
 
   # An additional entry in the dataset and metadata, useful for identifying which
   # points correspond to a given scan in combined datasets.
-  # The default is for print_scanID: true, 
+  # The default is for print_scanID: true,
   # and for it to print the date and time as an int of the form
   # scanID: HourMinuteSecondMillisecond. This can be overwritten to any integer.
   print_scanID: true
