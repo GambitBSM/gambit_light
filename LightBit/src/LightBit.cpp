@@ -129,7 +129,7 @@ namespace Gambit
         for (std::size_t i = 0; i < size1; ++i)
         {
           std::string loglike_name = it1->first.as<std::string>();
-          const YAML::Node& userLogLikesEntry = it1->second;
+          const YAML::Node userLogLikesEntry = it1->second;
 
           it2 = userLogLikesEntry.begin();
           size2 = userLogLikesEntry.size();
@@ -160,7 +160,7 @@ namespace Gambit
           // If there's a "name" entry for this parameter, use it.
           // If not, just use the model_par_name.
           std::string user_par_name = model_par_name;
-          const YAML::Node& par_node = it1->second;
+          const YAML::Node par_node = it1->second;
           if (par_node["name"].IsDefined())
           {
             user_par_name = par_node["name"].as<std::string>();
@@ -206,7 +206,7 @@ namespace Gambit
         for (std::size_t i = 0; i < size1; ++i)
         {
           std::string loglike_name = it1->first.as<std::string>();
-          const YAML::Node& userLogLikesEntry = it1->second;
+          const YAML::Node userLogLikesEntry = it1->second;
 
           std::vector<std::string> inputs;
           std::vector<std::string> outputs;
@@ -259,7 +259,7 @@ namespace Gambit
 
           if (userLogLikesEntry["input"].IsDefined())
           {
-            const YAML::Node& input_node = userLogLikesEntry["input"];
+            const YAML::Node input_node = userLogLikesEntry["input"];
             size2 = input_node.size();
             for (std::size_t j = 0; j < size2; j++)
             {
@@ -318,7 +318,7 @@ namespace Gambit
 
           if (userLogLikesEntry["output"].IsDefined())
           {
-            const YAML::Node& output_node = userLogLikesEntry["output"];
+            const YAML::Node output_node = userLogLikesEntry["output"];
             size2 = output_node.size();
             for (std::size_t j = 0; j < size2; j++)
             {

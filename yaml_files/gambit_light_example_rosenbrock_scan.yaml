@@ -1,114 +1,29 @@
 # ----------------------------------
-# GAMBIT_light configuration example
+# GAMBIT_light configuration example 
 # ----------------------------------
 
 UserModel:
 
   p1:
-    name: param_name_1
-    # prior_type: flat
-    # range: [0.0, 5.0]
+    name: x1
+    prior_type: flat
+    range: [-5.0, 10.0]
 
   p2:
-    name: param_name_2
-    # prior_type: flat
-    # range: [0.0, 5.0]
-
-  p3:
-    name: param_name_3
-    # fixed_value: 3.0
-
-  p4:
-    name: param_name_4
-    # same_as: UserModel::p1
-
-  p5-p7:
-    name: param_name_  # GAMBIT will generate the names "param_name_5", "param_name_6", etc.
-    # prior_type: flat
-    # range: [-1.0, 1.0]
-
-
-# Instead of specifying individual parameter priors above,
-# a user-provided prior transform function can be used via
-# the "UserPrior" section below. The user-defined prior
-# function should take care of the prior transform
-# (from the unit hypercube) for all parameters in use.
-
-UserPrior:
-
-  lang: python
-  user_lib: gambit_light_interface/example_python/example.py
-  func_name: user_prior
-
-  # lang: c
-  # user_lib: gambit_light_interface/example_c/example.so
-  # func_name: user_prior
-
-  # lang: c++
-  # user_lib: gambit_light_interface/example_cpp/example.so
-  # func_name: user_prior
-
-  # lang: fortran
-  # user_lib: gambit_light_interface/example_fortran/example.so
-  # func_name: user_prior
+    name: x2
+    prior_type: flat
+    range: [-5.0, 10.0]
 
 
 UserLogLikes:
 
-  # Note:
-  # If a loglike function expects all the UserModel parameters
-  # as input, you can leave out the 'input' section (see below).
-
-  py_user_loglike:
+  py_user_loglike_rosenbrock:
     lang: python
-    user_lib: gambit_light_interface/example_python/example.py
+    user_lib: gambit_light_interface/example_python/example_rosenbrock.py
     func_name: user_loglike
-    input:
-      - param_name_1
-      - param_name_2
-      - param_name_4
-    output:
-      - py_user_loglike_output_1
-      - py_user_loglike_output_2
-      - py_user_loglike_output_3
-
-
-  # c_user_loglike:
-  #   lang: c
-  #   user_lib: gambit_light_interface/example_c/example.so
-  #   func_name: user_loglike
-  #   input:
-  #     - param_name_1
-  #     - param_name_2
-  #     - param_name_3
-  #   output:
-  #     - c_user_loglike_output_1
-  #     - c_user_loglike_output_2
-  #     - c_user_loglike_output_3
-
-
-  # cpp_user_loglike:
-  #   lang: c++
-  #   user_lib: gambit_light_interface/example_cpp/example.so
-  #   func_name: user_loglike
-  #   input:
-  #     - param_name_2
-  #     - param_name_3
-  #   output:
-  #     - cpp_user_loglike_output_1
-  #     - cpp_user_loglike_output_2
-  #     # - cpp_user_loglike_output_3   # We can comment out an outputs if we
-  #                                     # don't want to include it in the scan output
-
-  # fortran_user_loglike:
-  #   lang: fortran
-  #   user_lib: gambit_light_interface/example_fortran/example.so
-  #   func_name: user_loglike
-  #   input:
-  #     - param_name_1
-  #     - param_name_2
-  #   output:
-  #     - fortran_user_loglike_output_1
+    # Store some more output from the user_loglike function?
+    # output:
+    #   - my_output_1
 
 
 Printer:
@@ -153,7 +68,7 @@ Printer:
 
 Scanner:
 
-  use_scanner: random
+  use_scanner: diver
 
   scanners:
 
@@ -163,10 +78,10 @@ Scanner:
 
     diver:
       plugin: diver
-      NP: 200                             # Population size (individuals per generation)
+      NP: 1500                            # Population size (individuals per generation)
       convthresh: 1.e-3                   # Threshold for gen-level convergence: smoothed fractional improvement in the mean population value
       jDE: true                           # Use self-adaptive choices for rand/1/bin parameters as per Brest et al 2006
-      lambdajDE: true                     # Use self-adaptive rand-to-best/1/bin parameters; based on Brest et al 2006
+      lambdajDE: false                    # Use self-adaptive rand-to-best/1/bin parameters; based on Brest et al 2006
       maxgen: 5000                        # Maximum number of generations per civilisation
       maxciv: 1                           # Maximum number of civilisations
       Cr: 0.9                             # Crossover factor
@@ -182,17 +97,10 @@ Scanner:
       max_initialisation_attempts: 10000  # Maximum number of times to try to find a valid vector for each slot in the initial population.
       verbosity: 0                        # Output verbosity: 0=only error messages, 1=basic info, 2=civ-level info, 3+=population info
       seed: -1                            # Base seed for random number generation; non-positive means seed from the system clock
-      initial_guesses:                    # Starting guesses for the parameter values -- use if you want to seed the scan with known good values.
-        parameters: [UserModel::p1, UserModel::p2, UserModel::p5, UserModel::p6, UserModel::p7] # Explains which parameter is which in the starting guesses. Be sure to use originals rather than parameters declared "same_as".
-        values:                           # The actual parameter values of the guesses
-        - [2, 2, 0.1, 0.1, 0.1]           # A guess at the parameter values
-        - [2, 3, 0, 0, 0]                 # Another guess at the parameter values
-        - [2, 2, 0.1, -0.1, 0]            # Yet another guess
-
 
     polychord:
       plugin: polychord
-      tol: 0.5                            # Stopping criterion (consistent with multinest)
+      tol: 0.2                            # Stopping criterion (consistent with multinest)
       # nlive:                            # Number of live points. Default is 25 * <number of parameters>
       # nprior:                           # Number of prior samples to begin algorithm with. Default is 10 * nlive
       do_clustering: true                 # Whether or not to perform clustering
@@ -206,8 +114,8 @@ Scanner:
     # The multinest scanner cannot be used together with the hdf5_v1 printer.
     multinest:
       plugin: multinest
-      nlive: 1000                         # Number of live points
-      tol: 0.5                            # Defines the stopping criteria
+      nlive: 6000                         # Number of live points
+      tol: 0.2                           # Defines the stopping criteria
       IS: true                            # Do Nested Importance Sampling?
       mmodal: true                        # Do mode separation?
       ceff: false                         # Run in constant efficiency mode?
@@ -271,7 +179,7 @@ Scanner:
     scipy_basin_hopping:
       like: LogLike
       plugin: scipy_basin_hopping
-      # The run arguments below have been tested with scipy v1.9.
+      # The run arguments below have been tested with scipy v1.9. 
       # Other versions might expect different arguments.
       run:
         # n_runs: 4
@@ -291,7 +199,7 @@ Scanner:
     scipy_differential_evolution:
       like: LogLike
       plugin: scipy_differential_evolution
-      # The run arguments below have been tested with scipy v1.9.
+      # The run arguments below have been tested with scipy v1.9. 
       # Other versions might expect different arguments.
       run:
         # n_runs: 4
@@ -313,7 +221,7 @@ Scanner:
     scipy_direct:
       like: LogLike
       plugin: scipy_direct
-      # The run arguments below have been tested with scipy v1.9.
+      # The run arguments below have been tested with scipy v1.9. 
       # Other versions might expect different arguments.
       run:
         # n_runs: 4
@@ -327,7 +235,7 @@ Scanner:
     scipy_dual_annealing:
       like: LogLike
       plugin: scipy_dual_annealing
-      # The run arguments below have been tested with scipy v1.9.
+      # The run arguments below have been tested with scipy v1.9. 
       # Other versions might expect different arguments.
       run:
         # n_runs: 4
@@ -345,7 +253,7 @@ Scanner:
     scipy_shgo:
       like: LogLike
       plugin: scipy_shgo
-      # The run arguments below have been tested with scipy v1.9.
+      # The run arguments below have been tested with scipy v1.9. 
       # Other versions might expect different arguments.
       run:
         split_param_space:
@@ -375,7 +283,7 @@ Scanner:
     scipy_minimize:
       like: LogLike
       plugin: scipy_minimize
-      # The run arguments below have been tested with scipy v1.9.
+      # The run arguments below have been tested with scipy v1.9. 
       # Other versions might expect different arguments.
       run:
         # n_runs: 5
@@ -400,7 +308,7 @@ Scanner:
       run:
         dlogz: 0.5
         checkpoint_every: 60
-
+        
     dynamic_dynesty:
       like: LogLike
       plugin: dynamic_dynesty
@@ -477,13 +385,13 @@ Logger:
 
 KeyValues:
 
-  default_output_path: "runs/gambit_light_example"
+  default_output_path: "runs/gambit_light_example_rosenbrock_scan"
 
   debug: false
 
   # An additional entry in the dataset and metadata, useful for identifying which
   # points correspond to a given scan in combined datasets.
-  # The default is for print_scanID: true,
+  # The default is for print_scanID: true, 
   # and for it to print the date and time as an int of the form
   # scanID: HourMinuteSecondMillisecond. This can be overwritten to any integer.
   print_scanID: true

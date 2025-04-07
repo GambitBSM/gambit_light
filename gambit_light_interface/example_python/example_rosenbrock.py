@@ -20,7 +20,7 @@ def rosenbrock_general(x):
     return sum(rosenbrock(x[i], x[i+1]) for i in range(n - 1))
 
 def loglike(x):
-    return -rosenbrock_general(x)
+    return -0.5 * rosenbrock_general(x)
 
 
 # User-side log-likelihood function, which can be called by GAMBIT-light.
@@ -29,8 +29,9 @@ def user_loglike(input_names, input_vals, output):
     # Make a dictionary of the inputs?
     input = {input_names[i]: input_vals[i] for i in range(len(input_names))}
 
-    x = np.array([input['param_name_1'], input['param_name_2']])
+    x = np.array([input["x1"], input["x2"]])
 
-    output['py_user_loglike_rosenbrock_output_1'] = 10;
+    # Store some more output?
+    # output["my_output_1"] = 10;
 
     return loglike(x)
