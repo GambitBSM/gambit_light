@@ -121,34 +121,34 @@ Printer:
   #   buffer_length: 10
   #   delete_file_on_restart: true
 
-  printer: hdf5
-  options:
-    output_file: "results.hdf5"
-    group: "/data"
-    buffer_length: 1000
-    delete_file_on_restart: true
-
-  # printer: hdf5_v1
+  # printer: hdf5
   # options:
   #   output_file: "results.hdf5"
   #   group: "/data"
+  #   buffer_length: 1000
   #   delete_file_on_restart: true
-  #   disable_combine_routines: true
-  #     # Note: The hdf5_v1 printer writes one HDF5 file per MPI process and then combines these 
-  #     # files at the end into a single HDF5 file. If the run output is very large, the combination 
-  #     # step at the end can take a long time, which may be impractical e.g. when running GAMBIT-light
-  #     # on an HPC system with a job time limit. An alternative then is to use the option
-  #     # 
-  #     #   disable_combine_routines: true
-  #     # 
-  #     # and "manually" combine the HDF5 files after the GAMBIT-light run. A script for doing this can
-  #     # be found in Printers/scripts/hdf5_combine.py. Use it as follows:
-  #     # 
-  #     #   python combine_hdf5.py <path-to-target-hdf5-file> <root group in hdf5 files> <tmp file 1> <tmp file 2> ...
-  #     # 
-  #     # Example:
-  #     # 
-  #     #   python path/to/Printers/scripts/combine_hdf5.py results.hdf5 data results.hdf5_temp_*
+
+  printer: hdf5_v1
+  options:
+    output_file: "results.hdf5"
+    group: "/data"
+    delete_file_on_restart: true
+    disable_combine_routines: true
+      # Note: The hdf5_v1 printer writes one HDF5 file per MPI process and then combines these 
+      # files at the end into a single HDF5 file. If the run output is very large, the combination 
+      # step at the end can take a long time, which may be impractical e.g. when running GAMBIT-light
+      # on an HPC system with a job time limit. An alternative then is to use the option
+      # 
+      #   disable_combine_routines: true
+      # 
+      # and "manually" combine the HDF5 files after the GAMBIT-light run. A script for doing this can
+      # be found in Printers/scripts/hdf5_combine.py. Use it as follows:
+      # 
+      #   python combine_hdf5.py <path-to-target-hdf5-file> <root group in hdf5 files> <tmp file 1> <tmp file 2> ...
+      # 
+      # Example:
+      # 
+      #   python path/to/Printers/scripts/combine_hdf5.py results.hdf5 data results.hdf5_temp_*
     
 
 Scanner:
