@@ -117,7 +117,6 @@ if(NOT ditched_${name}_${ver})
 endif()
 endif() # End if(NOT GAMBIT_LIGHT)
 
-if(NOT GAMBIT_LIGHT) # Do not include this version in GAMBIT-light
 set(name "diver")
 set(ver "1.0.5")
 set(lib "libdiver")
@@ -143,7 +142,6 @@ if(NOT ditched_${name}_${ver})
   )
   add_extra_targets("scanner" ${name} ${ver} ${dir} ${dl} clean)
 endif()
-endif() # End if(NOT GAMBIT_LIGHT)
 
 set(name "diver")
 set(ver "1.3.0")
