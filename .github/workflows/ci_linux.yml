@@ -10,7 +10,7 @@ jobs:
   # A job that builds GAMBIT + scanners, tests the command-line interface 
   # and runs a minimal test run with spartan.yaml
   gambit_light_build:
-    runs-on: [self-hosted, Linux, X64]
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
