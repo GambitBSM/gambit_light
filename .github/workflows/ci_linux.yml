@@ -1,4 +1,4 @@
-name: Gambit-light Linux CI on Wino
+name: Gambit-light Linux CI
 
 on:
   push:
